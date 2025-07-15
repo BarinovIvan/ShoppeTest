@@ -214,9 +214,9 @@
 
   @media (width < 376px) {
     .checkout {
+      display: flex;
       flex-direction: column;
       margin-bottom: 96px;
-      display: flex;
 
       &__heading {
         margin: 0 auto 16px 0;
