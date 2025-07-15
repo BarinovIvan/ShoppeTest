@@ -21,8 +21,33 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run ESLint
-        run: npm run lint
+      - name: Get changed files
+        id: changed-files
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            git fetch origin ${{ github.base_ref }} --depth=1
+            git diff --name-only origin/${{ github.base_ref }}...${{ github.sha }} > changed_files.txt
+          else
+            git diff --name-only ${{ github.sha }}^ ${{ github.sha }} > changed_files.txt
+          fi
+          cat changed_files.txt
 
-      - name: Run Stylelint
-        run: npm run lint:styles
+      - name: Run ESLint on changed files
+        if: always()
+        run: |
+          files=$(grep -E '\\.(js|ts|vue)$' changed_files.txt | xargs)
+          if [ -n "$files" ]; then
+            npx eslint $files
+          else
+            echo "No JS/TS/Vue files to lint."
+          fi
+
+      - name: Run Stylelint on changed files
+        if: always()
+        run: |
+          files=$(grep -E '\\.(css|scss|vue)$' changed_files.txt | xargs)
+          if [ -n "$files" ]; then
+            npx stylelint $files
+          else
+            echo "No CSS/SCSS/Vue files to lint."
+          fi

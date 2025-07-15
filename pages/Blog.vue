@@ -1,3 +1,3 @@
 <template>
-  <p>bu</p>
+  <p>bu2</p>
 </template>
