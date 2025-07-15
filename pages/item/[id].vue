@@ -136,14 +136,16 @@
   import TwitterIcon from 'SvgComponents/TwitterIcon.vue'
   import StarFilled from 'SvgComponents/StarFilled.vue'
   import StarPool from 'SvgComponents/StarPool.vue'
-
-  const route = useRoute()
+  import { ref, computed, onMounted, onUnmounted } from 'vue'
+  import { useRoute } from 'vue-router'
+  import useNotification from 'composables/useNotification'
+  // Если useFetch отсутствует, используйте useAsyncData или другой fetch composable Nuxt
+  import { useFetch } from '#app'
   import type { Product } from '~/types/product'
 
+  const route = useRoute()
   const currentId: number = Number(route.params.id) || 0
-  const { isLoading, data, fetchByURL } = useFetch<Product>(
-    `https://fakestoreapi.com/products/${currentId}`,
-  )
+  const { data, fetchByURL } = useFetch<Product>(`https://fakestoreapi.com/products/${currentId}`)
 
   onMounted(async () => {
     await fetchByURL()
@@ -173,7 +175,7 @@
   import ProductInfoMobile from '../components/ProductInfoMobile.vue'
   import { provide } from '#imports'
   import MarkRight from '../assets/pictures/svg/SvgComponents/MarkRight.vue'
-  import { useShoppingCart } from '#imports'
+  import { useShoppingCart } from '../stores/ShoppingCartStore'
   import DefaultSpinner from '../../components/DefaultSpinner.vue'
 
   const arrayOfPhotos = [img1, img2, img3, img4]
