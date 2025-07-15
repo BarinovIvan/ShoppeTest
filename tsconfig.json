@@ -1,0 +1,13 @@
+{
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "composables/*": ["./composables/*"],
+      "~/types/*": ["./types/*"],
+      "#imports": ["./.nuxt/imports.d.ts"]
+    },
+    "typeRoots": [".types"],
+    "types": ["vue"]
+  }
+}
