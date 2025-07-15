@@ -14,6 +14,13 @@
           <DefaultTextInput placeholder="last name *" size="medium" class="checkout__form-item" />
           <DefaultTextInput placeholder="Company Name" size="medium" class="checkout__form-item" />
           <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item" />
+          <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item" />
+          <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item />
+          <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item" />
+          <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item" />
+          <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item" />
+          <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item" />
+          <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item" />
           <DefaultTextInput
             placeholder="Street Address *"
             size="medium"

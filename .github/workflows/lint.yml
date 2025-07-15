@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -21,33 +23,30 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Get changed files
-        id: changed-files
-        run: |
-          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
-            git fetch origin ${{ github.base_ref }} --depth=1
-            git diff --name-only origin/${{ github.base_ref }}...${{ github.sha }} > changed_files.txt
-          else
-            git diff --name-only ${{ github.sha }}^ ${{ github.sha }} > changed_files.txt
-          fi
-          cat changed_files.txt
+      - name: Get changed JS/TS/Vue files
+        id: changed_js
+        uses: tj-actions/changed-files@v46
+        with:
+          files: |
+            **/*.js
+            **/*.ts
+            **/*.vue
+
+      - name: Get changed CSS/SCSS/Vue files
+        id: changed_css
+        uses: tj-actions/changed-files@v46
+        with:
+          files: |
+            **/*.css
+            **/*.scss
+            **/*.vue
 
       - name: Run ESLint on changed files
-        if: always()
+        if: steps.changed_js.outputs.any_changed == 'true'
         run: |
-          files=$(grep -E '\\.(js|ts|vue)$' changed_files.txt | xargs)
-          if [ -n "$files" ]; then
-            npx eslint $files
-          else
-            echo "No JS/TS/Vue files to lint."
-          fi
+          npx eslint ${{ steps.changed_js.outputs.all_changed_files }}
 
       - name: Run Stylelint on changed files
-        if: always()
+        if: steps.changed_css.outputs.any_changed == 'true'
         run: |
-          files=$(grep -E '\\.(css|scss|vue)$' changed_files.txt | xargs)
-          if [ -n "$files" ]; then
-            npx stylelint $files
-          else
-            echo "No CSS/SCSS/Vue files to lint."
-          fi
+          npx stylelint ${{ steps.changed_css.outputs.all_changed_files }}
