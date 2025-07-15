@@ -11,15 +11,8 @@
         <h2 class="checkout__details-heading">Billing Details</h2>
         <form class="checkout__form">
           <DefaultTextInput placeholder="First name *" size="medium" class="checkout__form-item" />
-          <DefaultTextInput placeholder="last name *" size="medium" class="checkout__form-item" />
+          <DefaultTextInput placeholder="Last name *" size="medium" class="checkout__form-item" />
           <DefaultTextInput placeholder="Company Name" size="medium" class="checkout__form-item" />
-          <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item" />
-          <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item" />
-          <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item />
-          <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item" />
-          <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item" />
-          <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item" />
-          <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item" />
           <DefaultTextInput placeholder="Country *" size="medium" class="checkout__form-item" />
           <DefaultTextInput
             placeholder="Street Address *"
@@ -55,8 +48,8 @@
 
             <ul class="order-container__list">
               <li
-                v-for="(item, index) of shoppingCart.productCart"
-                key="index"
+                v-for="(item, index) in shoppingCart.productCart"
+                :key="item.id || index"
                 class="order-container__item"
               >
                 <h5 class="order-container__list-title">{{ item.title }}</h5>
@@ -92,7 +85,7 @@
 
   const shoppingCart = useShoppingCart()
 
-  const { form, errors, handleBlur, validateForm, resetForm } = useFormValidation({
+  useFormValidation({
     firstName: '',
     lastName: '',
     companyName: '',
@@ -105,21 +98,19 @@
     orderNotes: '',
   })
 
-  const { submitForm, isModalOpen, status, modalClose, message } = useFormSubmit()
+  useFormSubmit()
 
-  const type = 'order'
-
-  const handleSubmit = () => {
-    submitForm(
-      'Your message has been sent successfully.',
-      'Form has errors. Please check all fields.',
-      form,
-      type,
-      validateForm,
-      resetForm,
-      saveToLocalStorage,
-    )
-  }
+  // const handleSubmit = () => {
+  //   submitForm(
+  //     'Your message has been sent successfully.',
+  //     'Form has errors. Please check all fields.',
+  //     form,
+  //     type,
+  //     validateForm,
+  //     resetForm,
+  //     saveToLocalStorage, // Эта функция не определена, убираем или определяем
+  //   )
+  // }
 </script>
 
 <style scoped lang="scss">
