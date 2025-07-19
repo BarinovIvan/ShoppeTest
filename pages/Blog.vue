@@ -1,3 +1,3 @@
 <template>
-  <p>bux</p>
+  <p>ля ля ля</p>
 </template>
