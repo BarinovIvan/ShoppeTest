@@ -1,4 +1,4 @@
-name: Deploy Nuxt site to Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
