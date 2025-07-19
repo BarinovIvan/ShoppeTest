@@ -25,6 +25,8 @@
   },
   "devDependencies": {
     "@nuxtjs/style-resources": "^1.2.2",
+    "@types/node": "^24.0.15",
+    "@types/vue": "^1.0.31",
     "@typescript-eslint/eslint-plugin": "^8.34.1",
     "@typescript-eslint/parser": "^8.34.1",
     "@vue/runtime-core": "^3.5.13",
