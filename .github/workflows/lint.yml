@@ -57,9 +57,3 @@ jobs:
           else
             echo "TypeScript config not found, skipping type check"
           fi
-
-      - name: Build project
-        run: npm run build
-
-      - name: Generate static site
-        run: npm run generate
