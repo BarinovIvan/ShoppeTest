@@ -1,3 +1,3 @@
 <template>
-  <p>bu2</p>
+  <p>bux</p>
 </template>
